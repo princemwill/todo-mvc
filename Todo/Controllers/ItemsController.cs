@@ -12,12 +12,12 @@ namespace Todo.Controllers
 {
     public class ItemsController : Controller
     {
-        private TodoDBEntities db = new TodoDBEntities();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Items
         public ActionResult Index()
         {
-            var items = db.Items.Include(i => i.List);
+            var items = db.Items;
             return View(items.ToList());
         }
 
@@ -48,7 +48,7 @@ namespace Todo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ItemID,ItemName,ListID,DueDateTime,Details")] Item item)
+        public ActionResult Create([Bind(Include = "ItemID,ItemName,ListID,DueDateTime,Details,IsDone")] Item item)
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace Todo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ItemID,ItemName,ListID,DueDateTime,Details")] Item item)
+        public ActionResult Edit([Bind(Include = "ItemID,ItemName,ListID,DueDateTime,Details,IsDone")] Item item)
         {
             if (ModelState.IsValid)
             {
@@ -93,6 +93,34 @@ namespace Todo.Controllers
             ViewBag.ListID = new SelectList(db.Lists, "ListID", "ListTitle", item.ListID);
             return View(item);
         }
+
+
+        public ActionResult ToggleDone(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Item item = db.Items.Find(id);
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (item.IsDone)
+            {
+                item.IsDone = false;
+            }
+            else
+            {
+                item.IsDone = true;
+            }
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
 
         // GET: Items/Delete/5
         public ActionResult Delete(int? id)

@@ -29,5 +29,9 @@ namespace Todo.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<Todo.Models.List> Lists { get; set; }
+
+        public System.Data.Entity.DbSet<Todo.Models.Item> Items { get; set; }
     }
 }

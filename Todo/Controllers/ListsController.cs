@@ -12,7 +12,7 @@ namespace Todo.Controllers
 {
     public class ListsController : Controller
     {
-        private TodoDBEntities db = new TodoDBEntities();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Lists
         public ActionResult Index()
