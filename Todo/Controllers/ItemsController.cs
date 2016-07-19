@@ -23,7 +23,7 @@ namespace Todo.Controllers
                         orderby n.ListID, n.DueDateTime
                         select n;
 
-            return View(items.ToList());
+            return View(items);
         }
 
         // GET: Items/Details/5
