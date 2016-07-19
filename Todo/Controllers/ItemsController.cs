@@ -17,7 +17,13 @@ namespace Todo.Controllers
         // GET: Items
         public ActionResult Index()
         {
-            var items = db.Items;
+            // ORDER BY ListID, DueDateTime
+            // LINQ!!!!
+            var items = from n in db.Items
+                        orderby n.ListID, n.DueDateTime
+                        where n.ListID == 2
+                        select n;
+
             return View(items.ToList());
         }
 
