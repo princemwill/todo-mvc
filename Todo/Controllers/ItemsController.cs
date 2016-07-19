@@ -21,7 +21,6 @@ namespace Todo.Controllers
             // LINQ!!!!
             var items = from n in db.Items
                         orderby n.ListID, n.DueDateTime
-                        where n.ListID == 2
                         select n;
 
             return View(items.ToList());
@@ -39,6 +38,7 @@ namespace Todo.Controllers
             {
                 return HttpNotFound();
             }
+            
             return View(item);
         }
 

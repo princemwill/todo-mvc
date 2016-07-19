@@ -27,6 +27,8 @@ namespace Todo.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            // SELECT * FROM Lists WHERE ListID = 2
             List list = db.Lists.Find(id);
             if (list == null)
             {
