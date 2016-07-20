@@ -17,17 +17,24 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ListTitle)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ListID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ListID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ListID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ListTitle)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.ListID }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.ListID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.ListID })*@
+
+                @Html.ActionLink(" ", "Edit", new { id = item.ListID }, new { @class = "glyphicon glyphicon-pencil", title = "Edit" })
+                @Html.ActionLink(" ", "Details", new { id = item.ListID }, new { @class = "glyphicon glyphicon-search", title = "Details" })
+                @Html.ActionLink(" ", "Delete", new { id = item.ListID }, new { @class = "glyphicon glyphicon-trash", title = "Delete" })
+
+
+            </td>
+        </tr>
+    }
 
 </table>
